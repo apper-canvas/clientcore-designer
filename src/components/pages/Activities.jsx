@@ -1,4 +1,5 @@
-import { useState, useEffect, useOutletContext } from "react";
+import { useState, useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import Header from "@/components/organisms/Header";
 import ActivityForm from "@/components/organisms/ActivityForm";
 import ActivityItem from "@/components/molecules/ActivityItem";
