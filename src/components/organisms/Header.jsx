@@ -55,7 +55,22 @@ const Header = ({ onMenuClick, title, subtitle, actions = [] }) => {
                 {action.icon && <ApperIcon name={action.icon} size={16} />}
                 <span className="hidden sm:inline">{action.label}</span>
               </Button>
-            ))}
+))}
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-600 hidden sm:inline">
+              {user?.firstName} {user?.lastName}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={logout}
+              className="flex items-center gap-2"
+            >
+              <ApperIcon name="LogOut" size={16} />
+              <span className="hidden sm:inline">Logout</span>
+            </Button>
           </div>
         </div>
       </div>
