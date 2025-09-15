@@ -13,6 +13,7 @@ import ContactDetail from "@/components/pages/ContactDetail";
 import Activities from "@/components/pages/Activities";
 import Contacts from "@/components/pages/Contacts";
 import Deals from "@/components/pages/Deals";
+import Quotes from "@/components/pages/Quotes";
 import Dashboard from "@/components/pages/Dashboard";
 import Layout from "@/components/organisms/Layout";
 
@@ -129,11 +130,12 @@ function App() {
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
           <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
-          <Route path="/" element={<Layout />}>
+<Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="contacts" element={<Contacts />} />
             <Route path="contacts/:id" element={<ContactDetail />} />
             <Route path="deals" element={<Deals />} />
+            <Route path="quotes" element={<Quotes />} />
             <Route path="activities" element={<Activities />} />
           </Route>
         </Routes>
