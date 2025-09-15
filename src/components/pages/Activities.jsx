@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import Header from "@/components/organisms/Header";
-import ActivityForm from "@/components/organisms/ActivityForm";
-import ActivityItem from "@/components/molecules/ActivityItem";
-import SearchBar from "@/components/molecules/SearchBar";
-import Card from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import Empty from "@/components/ui/Empty";
 import { activityService } from "@/services/api/activityService";
 import { contactService } from "@/services/api/contactService";
 import { dealService } from "@/services/api/dealService";
 import { toast } from "react-toastify";
+import Header from "@/components/organisms/Header";
+import ActivityForm from "@/components/organisms/ActivityForm";
+import SearchBar from "@/components/molecules/SearchBar";
+import ActivityItem from "@/components/molecules/ActivityItem";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
+import Error from "@/components/ui/Error";
 
 const Activities = () => {
   const { onMenuClick } = useOutletContext();
@@ -65,24 +65,24 @@ const Activities = () => {
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(activity => {
-        const contact = getContactById(activity.contactId);
-        const deal = activity.dealId ? getDealById(activity.dealId) : null;
+const contact = getContactById(activity.contact_id_c?.Id || activity.contact_id_c);
+        const deal = activity.deal_id_c ? getDealById(activity.deal_id_c?.Id || activity.deal_id_c) : null;
         
         return (
-          activity.description?.toLowerCase().includes(term) ||
-          activity.type?.toLowerCase().includes(term) ||
-          (contact && `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(term)) ||
-          (deal && deal.title?.toLowerCase().includes(term))
+          activity.description_c?.toLowerCase().includes(term) ||
+          activity.type_c?.toLowerCase().includes(term) ||
+          (contact && `${contact.first_name_c} ${contact.last_name_c}`.toLowerCase().includes(term)) ||
+          (deal && deal.title_c?.toLowerCase().includes(term))
         );
       });
     }
 
     if (typeFilter !== "All") {
-      filtered = filtered.filter(activity => activity.type === typeFilter);
+filtered = filtered.filter(activity => activity.type_c === typeFilter);
     }
 
     // Sort by date descending (most recent first)
-    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+filtered.sort((a, b) => new Date(b.date_c) - new Date(a.date_c));
     
     setFilteredActivities(filtered);
   };
@@ -114,11 +114,13 @@ const Activities = () => {
     try {
       setIsSubmitting(true);
       
-      if (editingActivity) {
+if (editingActivity) {
         const updated = await activityService.update(editingActivity.Id, activityData);
-        setActivities(prev => prev.map(activity => 
-          activity.Id === editingActivity.Id ? updated : activity
-        ));
+        if (updated) {
+          setActivities(prev => prev.map(activity => 
+            activity.Id === editingActivity.Id ? updated : activity
+          ));
+        }
         toast.success("Activity updated successfully!");
       } else {
         const newActivity = await activityService.create(activityData);
@@ -234,9 +236,8 @@ const Activities = () => {
               <div className="p-6">
                 <div className="space-y-4">
                   {filteredActivities.map(activity => {
-                    const contact = getContactById(activity.contactId);
-                    const deal = activity.dealId ? getDealById(activity.dealId) : null;
-                    
+const contact = getContactById(activity.contact_id_c?.Id || activity.contact_id_c);
+                    const deal = activity.deal_id_c ? getDealById(activity.deal_id_c?.Id || activity.deal_id_c) : null;
                     return (
                       <div key={activity.Id} className="relative group">
                         <ActivityItem

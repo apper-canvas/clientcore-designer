@@ -19,12 +19,12 @@ const ContactForm = ({ contact, onSubmit, onCancel, isSubmitting = false }) => {
   useEffect(() => {
     if (contact) {
       setFormData({
-        firstName: contact.firstName || "",
-        lastName: contact.lastName || "",
-        email: contact.email || "",
-        phone: contact.phone || "",
-        company: contact.company || "",
-        status: contact.status || "Lead"
+firstName: contact.first_name_c || "",
+        lastName: contact.last_name_c || "",
+        email: contact.email_c || "",
+        phone: contact.phone_c || "",
+        company: contact.company_c || "",
+        status: contact.status_c || "Lead"
       });
     }
   }, [contact]);

@@ -3,7 +3,13 @@ import Button from "@/components/atoms/Button";
 import SearchBar from "@/components/molecules/SearchBar";
 import ApperIcon from "@/components/ApperIcon";
 
+import { useContext } from "react";
+import { useSelector } from "react-redux";
+import { AuthContext } from "../../App";
+
 const Header = ({ onMenuClick, title, subtitle, actions = [] }) => {
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
   const [searchValue, setSearchValue] = useState("");
 
   return (

@@ -1,18 +1,17 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import Header from "@/components/organisms/Header";
-import DealForm from "@/components/organisms/DealForm";
-import DealCard from "@/components/molecules/DealCard";
-import Card from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import Empty from "@/components/ui/Empty";
-import ApperIcon from "@/components/ApperIcon";
 import { dealService } from "@/services/api/dealService";
 import { contactService } from "@/services/api/contactService";
 import { toast } from "react-toastify";
-
+import ApperIcon from "@/components/ApperIcon";
+import Header from "@/components/organisms/Header";
+import DealForm from "@/components/organisms/DealForm";
+import DealCard from "@/components/molecules/DealCard";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
+import Error from "@/components/ui/Error";
 const Deals = () => {
   const { onMenuClick } = useOutletContext();
   
@@ -77,11 +76,13 @@ const Deals = () => {
     try {
       setIsSubmitting(true);
       
-      if (editingDeal) {
+if (editingDeal) {
         const updated = await dealService.update(editingDeal.Id, dealData);
-        setDeals(prev => prev.map(deal => 
-          deal.Id === editingDeal.Id ? updated : deal
-        ));
+        if (updated) {
+          setDeals(prev => prev.map(deal => 
+            deal.Id === editingDeal.Id ? updated : deal
+          ));
+        }
         toast.success("Deal updated successfully!");
       } else {
         const newDeal = await dealService.create(dealData);
@@ -105,7 +106,7 @@ const Deals = () => {
   };
 
   const getDealsByStage = (stage) => {
-    return deals.filter(deal => deal.stage === stage);
+return deals.filter(deal => deal.stage_c === stage);
   };
 
   const getContactById = (id) => {
@@ -122,7 +123,7 @@ const Deals = () => {
   };
 
   const calculateStageValue = (stage) => {
-    return getDealsByStage(stage).reduce((sum, deal) => sum + deal.value, 0);
+return getDealsByStage(stage).reduce((sum, deal) => sum + (deal.value_c || 0), 0);
   };
 
   if (loading) return <Loading type="kanban" />;
@@ -230,7 +231,7 @@ const Deals = () => {
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold bg-gradient-to-r from-success to-success/80 bg-clip-text text-transparent mb-1">
-                      {formatCurrency(deals.reduce((sum, deal) => sum + deal.value, 0))}
+{formatCurrency(deals.reduce((sum, deal) => sum + (deal.value_c || 0), 0))}
                     </div>
                     <div className="text-sm text-gray-600">Total Value</div>
                   </div>

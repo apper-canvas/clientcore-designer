@@ -27,11 +27,11 @@ const ActivityForm = ({ activity, onSubmit, onCancel, isSubmitting = false }) =>
   useEffect(() => {
     if (activity) {
       setFormData({
-        contactId: activity.contactId?.toString() || "",
-        dealId: activity.dealId?.toString() || "",
-        type: activity.type || "Call",
-        description: activity.description || "",
-        date: activity.date ? 
+contactId: activity.contact_id_c?.Id?.toString() || activity.contact_id_c?.toString() || "",
+        dealId: activity.deal_id_c?.Id?.toString() || activity.deal_id_c?.toString() || "",
+        type: activity.type_c || "Call",
+        description: activity.description_c || "",
+        date: activity.date_c ?
           new Date(activity.date).toISOString().slice(0, 16) : 
           new Date().toISOString().slice(0, 16)
       });
@@ -40,7 +40,7 @@ const ActivityForm = ({ activity, onSubmit, onCancel, isSubmitting = false }) =>
 
   useEffect(() => {
     if (formData.contactId) {
-      const contactDeals = deals.filter(deal => deal.contactId.toString() === formData.contactId);
+const contactDeals = deals.filter(deal => (deal.contact_id_c?.Id || deal.contact_id_c)?.toString() === formData.contactId);
       setFilteredDeals(contactDeals);
     } else {
       setFilteredDeals(deals);
@@ -85,9 +85,11 @@ const ActivityForm = ({ activity, onSubmit, onCancel, isSubmitting = false }) =>
     if (validateForm()) {
       const activityData = {
         ...formData,
-        contactId: parseInt(formData.contactId),
-        dealId: formData.dealId ? parseInt(formData.dealId) : null,
-        date: new Date(formData.date).toISOString()
+contact_id_c: parseInt(formData.contactId),
+        deal_id_c: formData.dealId ? parseInt(formData.dealId) : null,
+        type_c: formData.type,
+        description_c: formData.description,
+        date_c: new Date(formData.date).toISOString()
       };
       onSubmit(activityData);
     }
@@ -140,7 +142,7 @@ const ActivityForm = ({ activity, onSubmit, onCancel, isSubmitting = false }) =>
             <option value="">Select a contact</option>
             {contacts.map(contact => (
               <option key={contact.Id} value={contact.Id}>
-                {contact.firstName} {contact.lastName} - {contact.company}
+{contact.first_name_c} {contact.last_name_c} - {contact.company_c}
               </option>
             ))}
           </select>
@@ -162,7 +164,7 @@ const ActivityForm = ({ activity, onSubmit, onCancel, isSubmitting = false }) =>
             <option value="">No related deal</option>
             {filteredDeals.map(deal => (
               <option key={deal.Id} value={deal.Id}>
-                {deal.title}
+{deal.title_c}
               </option>
             ))}
           </select>

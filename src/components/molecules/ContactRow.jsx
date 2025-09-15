@@ -16,27 +16,27 @@ const ContactRow = ({ contact, onEdit, onDelete }) => {
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-semibold">
-            {contact.firstName?.[0]}{contact.lastName?.[0]}
+{contact.first_name_c?.[0]}{contact.last_name_c?.[0]}
           </div>
           <div className="ml-4">
             <div className="text-sm font-medium text-primary">
-              {contact.firstName} {contact.lastName}
+{contact.first_name_c} {contact.last_name_c}
             </div>
-            <div className="text-sm text-gray-500">{contact.email}</div>
+            <div className="text-sm text-gray-500">{contact.email_c}</div>
           </div>
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm text-primary">{contact.company}</div>
+<div className="text-sm text-primary">{contact.company_c}</div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm text-primary">{contact.phone}</div>
+<div className="text-sm text-primary">{contact.phone_c}</div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <StatusBadge status={contact.status} />
+<StatusBadge status={contact.status_c} />
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        {contact.lastActivity ? format(new Date(contact.lastActivity), "MMM dd, yyyy") : "Never"}
+{contact.last_activity_c ? format(new Date(contact.last_activity_c), "MMM dd, yyyy") : "Never"}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <div className="flex items-center gap-2">

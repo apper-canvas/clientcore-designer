@@ -1,8 +1,9 @@
+import { format } from "date-fns";
+import React from "react";
+import ApperIcon from "@/components/ApperIcon";
+import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
-import Button from "@/components/atoms/Button";
-import ApperIcon from "@/components/ApperIcon";
-import { format } from "date-fns";
 
 const DealCard = ({ deal, contact, onEdit, onDelete, draggable = true }) => {
   const formatCurrency = (amount) => {
@@ -19,7 +20,7 @@ const DealCard = ({ deal, contact, onEdit, onDelete, draggable = true }) => {
       draggable={draggable}
     >
       <div className="flex justify-between items-start mb-3">
-        <h4 className="font-semibold text-primary text-sm">{deal.title}</h4>
+<h4 className="font-semibold text-primary text-sm">{deal.title_c}</h4>
         <div className="flex gap-1">
           <Button
             variant="ghost"
@@ -41,27 +42,27 @@ const DealCard = ({ deal, contact, onEdit, onDelete, draggable = true }) => {
       </div>
       
       <div className="space-y-2">
-        <div className="flex items-center justify-between">
+<div className="flex items-center justify-between">
           <span className="text-lg font-bold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent">
-            {formatCurrency(deal.value)}
+            {formatCurrency(deal.value_c)}
           </span>
-          <Badge variant="info">{deal.probability}%</Badge>
+          <Badge variant="info">{deal.probability_c}%</Badge>
         </div>
         
         {contact && (
           <div className="flex items-center text-sm text-gray-600">
             <ApperIcon name="User" size={14} className="mr-2" />
-            {contact.firstName} {contact.lastName}
+{contact.first_name_c} {contact.last_name_c}
           </div>
         )}
         
         <div className="flex items-center text-sm text-gray-600">
           <ApperIcon name="Calendar" size={14} className="mr-2" />
-          {format(new Date(deal.expectedCloseDate), "MMM dd, yyyy")}
+{format(new Date(deal.expected_close_date_c), "MMM dd, yyyy")}
         </div>
         
         {deal.notes && (
-          <p className="text-sm text-gray-600 line-clamp-2">{deal.notes}</p>
+<p className="text-sm text-gray-600 line-clamp-2">{deal.notes_c}</p>
         )}
       </div>
     </Card>
