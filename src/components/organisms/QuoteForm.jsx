@@ -5,7 +5,7 @@ import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import ApperIcon from '@/components/ApperIcon';
 import { contactService } from '@/services/api/contactService';
-import dealService from '@/services/api/dealService';
+import { dealService } from '@/services/api/dealService';
 
 const QuoteForm = ({ quote, onSubmit, onCancel }) => {
   const [loading, setLoading] = useState(false);
