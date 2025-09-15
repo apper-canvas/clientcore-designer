@@ -4,7 +4,7 @@ import Card from '@/components/atoms/Card';
 import Button from '@/components/atoms/Button';
 import Input from '@/components/atoms/Input';
 import ApperIcon from '@/components/ApperIcon';
-import contactService from '@/services/api/contactService';
+import { contactService } from '@/services/api/contactService';
 import dealService from '@/services/api/dealService';
 
 const QuoteForm = ({ quote, onSubmit, onCancel }) => {
