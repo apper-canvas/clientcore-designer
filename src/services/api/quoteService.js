@@ -1,9 +1,27 @@
 import { toast } from 'react-toastify';
 import mockQuotes from '../mockData/quotes.json';
 
+// Enhanced Quote Service with ApperClient-ready patterns
+// Ready for database migration when Quote tables become available
 class QuoteService {
   constructor() {
     this.quotes = [...mockQuotes];
+    
+    // Initialize ApperClient components for future database integration
+    this.isInitialized = false;
+    this.apperClient = null;
+  }
+
+  // Initialize ApperClient when database tables become available
+  async initializeApperClient() {
+    if (typeof window !== 'undefined' && window.ApperSDK) {
+      const { ApperClient } = window.ApperSDK;
+      this.apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+      this.isInitialized = true;
+    }
   }
 
   // Simulate API delay
